@@ -2,6 +2,8 @@
 {
     public interface IMyCloneable<T>  where T : class
     {
-        T DeepClone();
+        T MyClone();
+
+        T DeepCopy();
     }
 }
