@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace HomeWork5.Prototype.Tests
 {
-    public class StudentTest
+    public class StudentTests
     {
         [Fact]
         public void MyCloneableTest_MustReturnStudentWithEqualFields()
