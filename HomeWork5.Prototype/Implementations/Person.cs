@@ -13,7 +13,7 @@ namespace HomeWork5.Prototype.Implementations
         public Person(Person person) 
         {
             Name = person.Name;
-            Age = person.Age;   
+            Age = person.Age;
         }
         public Person(string name, int age)
         {
@@ -21,17 +21,17 @@ namespace HomeWork5.Prototype.Implementations
             Age = age;
         }
 
-        public Person MyClone()
+        public virtual Person MyClone()
         {
            return new Person(this);
         }
 
-        public object Clone()
+        public virtual object Clone()
         {
-           return MyClone();
+            return MemberwiseClone();
         }
 
-        public Person DeepCopy()
+        public virtual Person DeepCopy()
         {
            return CopyHelper.CreateDeepCopy(this);
         }
