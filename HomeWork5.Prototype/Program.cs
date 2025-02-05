@@ -2,14 +2,19 @@
 
 namespace HomeWork5.Prototype
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-            MyCloneableBase a = new MyCloneableBase() { A = 10 , B = 20};
+            Person a = new Person("Tom", 20) ;
 
-            var b = a.DeepClone();
+            var b = (Person)a.Clone();
+
+            b.Name = "Sam";
+            b.Age = 25;
+
+            Console.WriteLine(a);
 
             Console.WriteLine(b);
 
