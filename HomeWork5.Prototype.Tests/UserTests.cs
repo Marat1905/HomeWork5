@@ -19,7 +19,7 @@ namespace HomeWork5.Prototype.Tests
             Assert.Multiple(() =>
             {
                 Assert.False(user.Equals(clone));
-                Assert.True(user.Id.Equals(info));
+                Assert.True(user.Id.Equals(clone.Id));
                 Assert.Equal(JsonSerializer.Serialize(user), JsonSerializer.Serialize(clone));
             });
 
@@ -39,7 +39,7 @@ namespace HomeWork5.Prototype.Tests
             Assert.Multiple(() =>
             {
                 Assert.False(user.Equals(clone));
-                Assert.True(user.Id.Equals(info));
+                Assert.True(user.Id.Equals(clone.Id));
                 Assert.Equal(JsonSerializer.Serialize(user), JsonSerializer.Serialize(clone));
             });
 
@@ -51,7 +51,7 @@ namespace HomeWork5.Prototype.Tests
             IdInfo info = new IdInfo(1, "Паспорт");
             // Arrange
             var user = new User("Tom", 20, info);
-            var clone = (User)user.DeepCopy();
+            var clone = user.DeepCopy();
 
             // Act
 
@@ -59,10 +59,58 @@ namespace HomeWork5.Prototype.Tests
             Assert.Multiple(() =>
             {
                 Assert.False(user.Equals(clone));
-                Assert.False(user.Id.Equals(info));
+                Assert.NotEqual(clone.Id, user.Id);
                 Assert.Equal(JsonSerializer.Serialize(user), JsonSerializer.Serialize(clone));
             });
 
+        }
+
+        [Fact]
+        public void MyCloneableTest_MustReturnUserWithDifferentReferencesToFields()
+        {
+            // Arrange
+            IdInfo info = new IdInfo(1, "Паспорт");
+            var user = new User("Tom", 20, info);
+            var clone = user.MyClone();
+
+            // Act
+            clone.Name = "Sam";
+            clone.Age = 22;
+
+            user.Id.IdNumber = 2;
+            user.Id.Type = "Загран";
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.False(user.Equals(clone));
+                Assert.Equal(user.Id, clone.Id);
+                Assert.NotEqual(JsonSerializer.Serialize(user), JsonSerializer.Serialize(clone));
+            });
+        }
+
+        [Fact]
+        public void CloneableTest_MustReturnUserWithDifferentReferencesToFields()
+        {
+            // Arrange
+            IdInfo info = new IdInfo(1, "Паспорт");
+            var user = new User("Tom", 20, info);
+            var clone = (User)user.Clone();
+
+            // Act
+            clone.Name = "Sam";
+            clone.Age = 22;
+
+            user.Id.IdNumber = 2;
+            user.Id.Type = "Загран";
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.False(user.Equals(clone));
+                Assert.Equal(user.Id, clone.Id);
+                Assert.NotEqual(JsonSerializer.Serialize(user), JsonSerializer.Serialize(clone));
+            });
         }
 
         [Fact]
@@ -76,14 +124,15 @@ namespace HomeWork5.Prototype.Tests
             // Act
             clone.Name = "Sam";
             clone.Age = 22;
-            IdInfo info2 = new IdInfo(2, "Загран");
-            clone.Id = info2;
+            //IdInfo info2 = new IdInfo(2, "Загран");
+            user.Id.IdNumber = 2;
+            user.Id.Type = "Загран"; 
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.False(user.Equals(clone));
-                Assert.False(user.Id.Equals(clone.Id));
+                Assert.NotEqual(user.Id, clone.Id);
                 Assert.NotEqual(JsonSerializer.Serialize(user), JsonSerializer.Serialize(clone));
             });
         }
