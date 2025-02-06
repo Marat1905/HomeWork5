@@ -6,17 +6,7 @@ namespace HomeWork5.Prototype
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            Person a = new Person("Tom", 20) ;
-
-            var b = (Person)a.Clone();
-
-            b.Name = "Sam";
-            b.Age = 25;
-
-            Console.WriteLine(a);
-
-            Console.WriteLine(b);
+           Console.WriteLine("Hello, World!");
 
            Console.ReadLine();
         }

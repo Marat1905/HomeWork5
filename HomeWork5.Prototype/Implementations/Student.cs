@@ -1,5 +1,4 @@
 ﻿using HomeWork5.Prototype.Extensions;
-using HomeWork5.Prototype.Interfaces;
 
 namespace HomeWork5.Prototype.Implementations
 {
